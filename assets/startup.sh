@@ -9,11 +9,12 @@ cp "${TNSNAMES_ORA}.tmpl" "$TNSNAMES_ORA" &&
 sed -i "s/%hostname%/$HOSTNAME/g" "${TNSNAMES_ORA}" &&
 sed -i "s/%port%/1521/g" "${TNSNAMES_ORA}" &&
 
-service oracle-xe start
-
 export ORACLE_HOME=/u01/app/oracle/product/11.2.0/xe
 export PATH=$ORACLE_HOME/bin:$PATH
 export ORACLE_SID=XE
+
+$ORACLE_HOME/bin/lsnrctl start
+service oracle-xe start
 
 if [ "$ORACLE_ENABLE_XDB" = true ]; then
   echo "ALTER USER XDB ACCOUNT UNLOCK;" | sqlplus -s SYSTEM/oracle
