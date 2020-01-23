@@ -51,6 +51,8 @@ sqlplus SYS/oracle as sysdba << EOM
 create temporary tablespace temp2 tempfile '/u01/app/oracle/oradata/XE/temp02.dbf' size 1000m autoextend on next 100m maxsize 4000m;
 ALTER database datafile '/u01/app/oracle/oradata/XE/system.dbf' AUTOEXTEND ON maxsize 2G;
 ALTER SYSTEM SET NLS_DATE_FORMAT='YYYY-MM-DD' SCOPE=SPFILE;
+alter system set processes=400 scope=spfile;
+alter system set sessions=600 scope=spfile;
 EOM
 
 # Add cron
